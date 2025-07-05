@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Medicine Reminder</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f2f6fa; padding: 40px; }
+        h1 { text-align: center; color: #34495e; }
+        form { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: 0 auto 40px auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { padding: 10px; margin: 8px 0; width: 100%; border-radius: 6px; border: 1px solid #ccc; }
+        button { background: #27ae60; color: white; font-weight: bold; border: none; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); overflow: hidden; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; }
+        th { background: #3498db; color: white; }
+        a.delete, a.edit {
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        a.delete { background-color: #e74c3c; }
+        a.edit { background-color: #2980b9; margin-right: 5px; }
+    </style>
+    <script>
+        function confirmDelete(index) {
+            if (confirm("Are you sure you want to delete this entry?")) {
+                window.location.href = "/delete/" + index;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>💊 Smart Medicine Reminder</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Medication Name" required>
+        <input type="text" name="dosage" placeholder="Dosage (e.g., 500mg)">
+        <input type="text" name="frequency" placeholder="Frequency (e.g., 3 times a day)">
+        <input type="text" name="times" placeholder="Schedule Times (e.g., 08:00,14:00)" required>
+        <input type="number" name="days" placeholder="Days (e.g., 5)" required>
+        <button type="submit">Add Medication</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Dosage</th>
+            <th>Frequency</th>
+            <th>Schedule Times</th>
+            <th>Days</th>
+            <th>Start Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for med in medications %}
+        <tr>
+            <td>{{ med[0] }}</td>
+            <td>{{ med[1] }}</td>
+            <td>{{ med[2] }}</td>
+            <td>{{ med[3] }}</td>
+            <td>{{ med[4] }}</td>
+            <td>{{ med[5] }}</td>
+            <td>
+                <a href="/edit/{{ loop.index0 }}" class="edit">Edit</a>
+                <a href="javascript:void(0);" class="delete" onclick="confirmDelete({{ loop.index0 }})">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

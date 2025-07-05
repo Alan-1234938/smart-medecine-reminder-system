@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Medication</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f2f6fa; padding: 40px; }
+        h1 { text-align: center; color: #34495e; }
+        form { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { padding: 10px; margin: 8px 0; width: 100%; border-radius: 6px; border: 1px solid #ccc; }
+        button { background: #f39c12; color: white; font-weight: bold; border: none; }
+        a { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>✏️ Edit Medication</h1>
+    <form action="/update/{{ index }}" method="POST">
+        <input type="text" name="name" value="{{ med[0] }}" required>
+        <input type="text" name="dosage" value="{{ med[1] }}">
+        <input type="text" name="frequency" value="{{ med[2] }}">
+        <input type="text" name="times" value="{{ med[3] }}" required>
+        <input type="number" name="days" value="{{ med[4] }}" required>
+        <button type="submit">Update Medication</button>
+    </form>
+    <a href="/">← Back to Home</a>
+</body>
+</html>
